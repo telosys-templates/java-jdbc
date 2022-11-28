@@ -16,11 +16,20 @@
 
 	<dependencies>
 
-		<!-- JPA implementation : Hibernate  -->
+		<!-- Add your JDBC driver here -->
+
+		<!-- Choose the connection pool here -->
+		<!-- Connection pool : Apache DBCP -->
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>5.4.18.Final</version>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<!-- Connection pool : Hikari Connection Pool -->
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>2.4.7</version>
 		</dependency>
 
 		<!-- Dependencies for Unit Testing -->
