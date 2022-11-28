@@ -1,6 +1,5 @@
 #parse("/include/init_var_entity.vm")
 #parse("/include/java_header.vm")
-#set( $recordPackage      = "${ROOT_PKG}.data.record" )
 package ${target.javaPackageFromFolder(${SRC})};
 
 import java.util.List;
@@ -9,6 +8,9 @@ import ${recordPackage}.${recordClass};
 
 /**
  * Persistence Interface for ${recordClass}.
+ * 
+ * @author Telosys
+ * 
  */
 public interface ${entity.name}Persistence { 
 
@@ -63,7 +65,6 @@ public interface ${entity.name}Persistence {
 #end
 	 * @return true if the entity has been deleted, false if not found and not deleted
 	 */
-##	void delete( $fn.argumentsListWithType($entity.keyAttributes) );
 	boolean deleteById( $fn.argumentsListWithWrapperType($entity.keyAttributes) );
 
 	/**

@@ -1,6 +1,5 @@
+#parse("/include/init_var_entity.vm")
 #parse("/include/java_header.vm")
-
-$env.setEntityClassNameSuffix("Record")
 package ${target.javaPackageFromFolder(${SRC})};
 
 import java.io.Serializable;
@@ -10,98 +9,84 @@ import $import;
 #end
 
 /**
- * Java bean for entity "${entity.databaseTable}" <br>
+ * Database record for entity "${entity.name}" (table "$entity.sqlTableName") <br>
  * Contains only "wrapper types" (no primitive types) <br>
- * Can be used both as a "web form" and "persistence record" <br>
+ * in order to be usable both for "web form" and for "persistence" <br>
  * 
- * @author Telosys Tools Generator
+ * @author Telosys
  *
  */
-public class $entity.name implements Serializable
+public class ${recordClass} implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
-#foreach( $field in $entity.keyAttributes )
-## $beanValidation.annotations(4,$field)
-## $beanValidation.annotationsForWrapperType(4,$field)
-##    private $field.formattedType(10) $field.formattedName(12) #if($field.hasInitialValue())= ${field.initialValue} #end; // Id or Primary Key
-    private $field.wrapperType $field.name ; // $field.type // Id or Primary Key
+#foreach( $attribute in $entity.keyAttributes )
+## $beanValidation.annotations(4,$attribute)
+## $beanValidation.annotationsForWrapperType(4,$attribute)
+    private $attribute.wrapperType $attribute.name ; // PK - db column "$attribute.sqlColumnName"
 #end
 
-#foreach( $field in $entity.nonKeyAttributes )
-## $beanValidation.annotations(4,$field)
-## $beanValidation.annotationsForWrapperType(4,$field)
-##    private $field.formattedType(10) $field.formattedName(12) #if($field.hasInitialValue())= ${field.initialValue} #end; #if($field.isFK()) // Foreign Key #end
-    private $field.wrapperType $field.name ;  // $field.type 
+#foreach( $attribute in $entity.nonKeyAttributes )
+## $beanValidation.annotations(4,$attribute)
+## $beanValidation.annotationsForWrapperType(4,$attribute)
+    private $attribute.wrapperType $attribute.name ; // db column "$attribute.sqlColumnName"
 #end
 
     /**
      * Default constructor
      */
-    public ${entity.name}() {
+    public ${recordClass}() {
         super();
     }
     
     //----------------------------------------------------------------------
     // GETTER(S) & SETTER(S) FOR ID OR PRIMARY KEY 
     //----------------------------------------------------------------------
-#foreach( $field in $entity.keyAttributes )
-#if ( $field.setter )    
+#foreach( $attribute in $entity.keyAttributes )
+#if ( $attribute.setter )    
     /**
-     * Set the "$field.name" field value
-#if ( $field.databaseName )     * This field is mapped on the database column "$field.databaseName" ( type "$field.databaseType", NotNull : $field.isDatabaseNotNull() ) 
-#end
-     * @param $field.name
+     * Set "$attribute.name" attribute value
+     * @param $attribute.name
      */
-	public void ${field.setter}( $field.wrapperType $field.name ) {
-        this.$field.name = $field.name ;
+	public void ${attribute.setter}( $attribute.wrapperType $attribute.name ) {
+        this.$attribute.name = $attribute.name ;
     }
 #end
-#if ( $field.getter )    
+#if ( $attribute.getter )    
     /**
-     * Get the "$field.name" field value
-#if ( $field.databaseName )     * This field is mapped on the database column "$field.databaseName" ( type "$field.databaseType", NotNull : $field.isDatabaseNotNull() ) 
-#end
-     * @return the field value
+     * Get "$attribute.name" attribute value
+     * @return the attribute value
      */
-	public $field.wrapperType ${field.getter}() {
-        return this.$field.name;
+	public $attribute.wrapperType ${attribute.getter}() {
+        return this.$attribute.name;
     }
-#end
 #end
 
+#end
     //----------------------------------------------------------------------
     // GETTER(S) & SETTER(S) FOR OTHER DATA FIELDS 
     //----------------------------------------------------------------------
-#foreach( $field in $entity.nonKeyAttributes )
-#if ( $field.setter )
+#foreach( $attribute in $entity.nonKeyAttributes )
+#if ( $attribute.setter )
     /**
-     * Set the "$field.name" field value
-#if ( $field.databaseName )     * This field is mapped on the database column "$field.databaseName" ( type "$field.databaseType", NotNull : $field.isDatabaseNotNull() ) 
-#end
-     * @param $field.name
+     * Set the "$attribute.name" attribute value
+     * @param $attribute.name
      */
-    public void ${field.setter}( $field.wrapperType $field.name ) {
-        this.$field.name = $field.name;
+    public void ${attribute.setter}( $attribute.wrapperType $attribute.name ) {
+        this.$attribute.name = $attribute.name;
     }
 #end
-#if ( $field.getter )
+#if ( $attribute.getter )
     /**
-     * Get the "$field.name" field value
-#if ( $field.databaseName )     * This field is mapped on the database column "$field.databaseName" ( type "$field.databaseType", NotNull : $field.isDatabaseNotNull() ) 
-#end
-     * @return the field value
+     * Get the "$attribute.name" attribute value
+     * @return the attribute value
      */
-    public $field.wrapperType ${field.getter}() {
-        return this.$field.name;
+    public $attribute.wrapperType ${attribute.getter}() {
+        return this.$attribute.name;
     }
 #end
 
 #end
-    //----------------------------------------------------------------------
-    // toString METHOD
-    //----------------------------------------------------------------------
     @Override
 $java.toStringMethod($entity, 4)
-
 }
