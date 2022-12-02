@@ -33,8 +33,7 @@ public interface ${entity.name}Persistence {
 	 * Counts all the records present in the database
 	 * @return
 	 */
-	public long countAll() ;
-
+	long countAll() ;
 
 	/**
 	 * Saves the given entity in the database (create or update)
@@ -68,26 +67,26 @@ public interface ${entity.name}Persistence {
 	boolean deleteById( $fn.argumentsListWithWrapperType($entity.keyAttributes) );
 
 	/**
-	 * Deletes an entity using the Id / Primary Key stored in the given object
-	 * @param the entity to be deleted (supposed to have a valid Id/PK )
-	 * @return true if the entity has been deleted, false if not found and not deleted
+	 * Deletes a record using the Primary Key stored in the given object
+	 * @param $recordInstance the record to be deleted (supposed to have a valid Id/PK )
+	 * @return true if record has been deleted, false if not found and not deleted
 	 */
-	boolean delete( ${recordClass} entity );
+	boolean delete( ${recordClass} $recordInstance );
 
 	/**
-	 * Returns true if an entity exists with the given Id / Primary Key 
+	 * Returns true if a record exists with the given Primary Key 
 #foreach( $attribute in $entity.keyAttributes )
 	 * @param $attribute.name
 #end
 	 * @return
 	 */
-	public boolean exists( $fn.argumentsListWithWrapperType($entity.keyAttributes) ) ;
+	boolean exists( $fn.argumentsListWithWrapperType($entity.keyAttributes) ) ;
 
 	/**
-	 * Returns true if the given entity exists
-	 * @param entity
+	 * Returns true if the given record exists
+	 * @param $recordInstance
 	 * @return
 	 */
-	public boolean exists( ${recordClass} entity ) ;
+	boolean exists( ${recordClass} $recordInstance ) ;
 
 }

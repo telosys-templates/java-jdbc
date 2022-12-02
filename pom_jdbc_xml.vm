@@ -18,18 +18,12 @@
 
 		<!-- Add your JDBC driver here -->
 
-		<!-- Choose the connection pool here -->
-		<!-- Connection pool : Apache DBCP -->
+		<!-- Choose your connection pool here (if necessary) -->
+		<!-- Connection pool example : Apache DBCP -->
 		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.4</version>
-		</dependency>
-		<!-- Connection pool : Hikari Connection Pool -->
-		<dependency>
-			<groupId>com.zaxxer</groupId>
-			<artifactId>HikariCP</artifactId>
-			<version>2.4.7</version>
 		</dependency>
 
 		<!-- Dependencies for Unit Testing -->

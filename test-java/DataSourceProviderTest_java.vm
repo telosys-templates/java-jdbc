@@ -1,5 +1,4 @@
 #parse("/include/java_header.vm")
-
 package ${target.javaPackageFromFolder($TEST_SRC)};
 
 import java.sql.Connection;
@@ -11,8 +10,6 @@ import javax.sql.DataSource;
 import org.junit.Assert;
 import org.junit.Test;
 
-
-
 /**
  * JUnit tests for DataSourceProvider
  * 
@@ -21,44 +18,48 @@ import org.junit.Test;
  */
 public class DataSourceProviderTest {
 
-	private void printProperty(Properties properties, String name) {
+	private void print(String message) {
+		System.out.println(message);
+	}
+
+	private void checkProperty(Properties properties, String name) {
 		String value = properties.getProperty(name);
-		System.out.println(" . " + name + " = " + value );
-		Assert.assertNotNull( value );
-		Assert.assertFalse( "".equals(value.trim()));
+		print(" . " + name + " = " + value );
+		Assert.assertNotNull(value);
+		Assert.assertFalse(value.isBlank());		
 	}
 
 	@Test
 	public void test1JdbcProperties() throws SQLException {
-		System.out.println("--- test JDBC properties");
+		print("--- test JDBC properties");
     	
-		System.out.println("JDBC properties file name = '" + DataSourceProvider.getJdbcPrpertiesFileName() + "'");
-		System.out.println(" properties file searched via classpath in : " );
-		System.out.println(" 1 - 'src/test/resources' " );
-		System.out.println(" 2 - 'src/main/resources' " );
+		print("JDBC properties file name = '" + DataSourceProvider.getJdbcPrpertiesFileName() + "'");
+		print(" properties file searched via classpath in : " );
+		print(" 1 - 'src/test/resources' " );
+		print(" 2 - 'src/main/resources' " );
 		
 		Properties properties = DataSourceProvider.loadJdbcPropertiesFromClassPath();
 
-		System.out.println("JDBC properties values : " );
-		printProperty(properties, "jdbc.url" );
-		printProperty(properties, "jdbc.driverClassName" );
-		printProperty(properties, "jdbc.username" );
-		printProperty(properties, "jdbc.password" );		
+		print("JDBC properties values : " );
+		checkProperty(properties, "jdbc.url" );
+		checkProperty(properties, "jdbc.driverClassName" );
+		checkProperty(properties, "jdbc.username" );
+		checkProperty(properties, "jdbc.password" );		
 	}
 	
 	@Test
 	public void test2DataSource() throws SQLException {
-    	System.out.println("--- test DataSourceProvider ");
+    	print("--- test DataSourceProvider ");
     	
     	DataSource dataSource = DataSourceProvider.getDataSource();
-    	System.out.println("DataSource ready. ");
+    	print("DataSource ready. ");
     	
     	Connection c = dataSource.getConnection();
-    	System.out.println("Connection ready. ");
+    	print("Connection ready. ");
     	
     	Assert.assertNotNull( c );
     	
     	c.close();
-    	System.out.println("Connection closed. ");
+    	print("Connection closed. ");
 	}
 }

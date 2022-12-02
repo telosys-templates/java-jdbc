@@ -40,7 +40,7 @@ public class ${recordClass} implements Serializable
     }
     
     //----------------------------------------------------------------------
-    // GETTER(S) & SETTER(S) FOR ID OR PRIMARY KEY 
+    // PRIMARY KEY 
     //----------------------------------------------------------------------
 #foreach( $attribute in $entity.keyAttributes )
 #if ( $attribute.setter )    
@@ -64,7 +64,7 @@ public class ${recordClass} implements Serializable
 
 #end
     //----------------------------------------------------------------------
-    // GETTER(S) & SETTER(S) FOR OTHER DATA FIELDS 
+    // OTHER ATTRIBUTES
     //----------------------------------------------------------------------
 #foreach( $attribute in $entity.nonKeyAttributes )
 #if ( $attribute.setter )
