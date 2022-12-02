@@ -1,13 +1,13 @@
 # Java JDBC persistence layer with JUnit test cases
 
-Do not use.
-Work in progress...
+This bundle generates a "record-oriented" persistence layer based on JDBC
 
-TODO:
+No framework dependency (just a connection pool)
 
- $attrib & $entity : use ".sqlXxxx"
- 
- $h2 : keep or remove ???
- 
- Gen SQL script and use it in H2 JDBC URL
+Main generated files:
 
+- record classes 
+- persistence interface
+- persistence implementation with JDBC
+- datasource provider
+- JUnit tests (with H2 database)
