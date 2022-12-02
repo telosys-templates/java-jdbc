@@ -77,6 +77,14 @@ public class ${entity.name}PersistenceJdbcTest {
 #end
 #end
 #end
+##--------------------------------------------------------------------------------------------------------
+#macro( initData $name)
+		// Set initial values ( auto-incremented key : nothing to set in the Primary Key )
+#foreach( $attribute in $entity.nonKeyAttributes )
+		${name}.${attribute.setter}($dataValues.getValue($attribute.name)); // $attribute.fullType
+#end
+#end
+##--------------------------------------------------------------------------------------------------------
 
 ##----------------------------------------------------------------------------------------
 ##  ========== TEST CASE FOR STANDARD KEY ( NOT AUTO-INCREMENTED ) ========== 

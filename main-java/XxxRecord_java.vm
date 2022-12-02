@@ -21,9 +21,10 @@ public class ${recordClass} implements Serializable
     private static final long serialVersionUID = 1L;
 
 #foreach( $attribute in $entity.keyAttributes )
+#if ($attribute.isAutoIncremented())#set($AUTOINC="AutoIncr ")#else #set($AUTOINC="")#end
 ## $beanValidation.annotations(4,$attribute)
 ## $beanValidation.annotationsForWrapperType(4,$attribute)
-    private $attribute.wrapperType $attribute.name ; // PK - db column "$attribute.sqlColumnName"
+    private $attribute.wrapperType $attribute.name ; // PK ${AUTOINC}db column "$attribute.sqlColumnName"
 #end
 
 #foreach( $attribute in $entity.nonKeyAttributes )
